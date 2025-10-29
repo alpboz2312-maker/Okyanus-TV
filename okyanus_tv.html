@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Okyanu TV - Filmler</title>
+<style>
+@keyframes bgAnimation {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+body {
+  margin:0; font-family: Arial,sans-serif; color:white;
+  background: linear-gradient(-45deg,#000428,#004e92,#0d0d0d,#002240);
+  background-size:300% 300%; animation:bgAnimation 15s ease infinite;
+}
+header {
+  background: rgba(0,0,50,0.7);
+  backdrop-filter: blur(5px);
+  text-align: center;
+  font-size: 24px;
+  font-weight: bold;
+  padding: 10px;
+}
+#filmSearch { width:90%; max-width:400px; padding:10px; font-size:16px;
+  margin:10px auto; display:block; border-radius:5px; border:1px solid #ccc;
+}
+#filters { text-align:center; margin:10px 0; }
+.filter-btn { background:#00aaff; color:white; border:none; border-radius:5px;
+  padding:8px 12px; margin:0 5px; cursor:pointer; font-size:14px;
+}
+.filter-btn:hover { background:#33ccff; }
+.category { font-size:20px; margin:15px 10px 10px; cursor:pointer;
+  text-decoration:underline; color:#00aaff;
+}
+.category:hover { color:#33ccff; }
+.video-section { display:none; padding:0 10px 20px; }
+.video-wrapper { display:flex; flex-direction:column; margin:10px 0;
+  background:rgba(0,0,50,0.3); padding:10px; border-radius:5px;
+  cursor:pointer; transition:background 0.3s;
+}
+.video-wrapper:hover { background: rgba(0,170,255,0.3); }
+.video-info h3 { margin:0; font-size:16px; }
+.video-info p { margin:5px 0 0 0; font-size:14px; }
+.star { font-weight:bold; margin-left:5px; }
+.video-container { display:none; margin:10px auto; text-align:center; }
+iframe { width:100%; max-width:100%; height:200px; border:none; border-radius:5px; }
+@media(min-width:600px){ .video-info h3{font-size:18px;} .video-info p{font-size:14px;} iframe{height:315px;} }
+@media(min-width:900px){ .video-wrapper{max-width:700px;margin:10px auto;} }
+#music-toggle { position:fixed; bottom:20px; right:20px; padding:10px 15px;
+  background:#00aaff; color:white; border:none; border-radius:8px; cursor:pointer;
+  z-index:200; font-size:16px;
+}
+</style>
+</head>
+<body>
+<header>Okyanu TV</header>
+
+<input type="text" id="filmSearch" placeholder="Filmleri ara..." />
+<div id="filters">
+  <button class="filter-btn" onclick="filterByRating(0)">Tüm Filmler</button>
+  <button class="filter-btn" onclick="filterByRating(7)">IMDb ≥ 7</button>
+  <button class="filter-btn" onclick="filterByRating(8)">IMDb ≥ 8</button>
+</div>
+
+<!-- Animasyon -->
+<div class="category" onclick="toggleCategory('animasyon')">Özel Animasyon</div>
+<div class="video-section" id="animasyon">
+  <div class="video-wrapper" data-imdb="7.5" onclick="toggleVideo(this)">
+    <div class="video-info"><h3>Ajan Kedi</h3><p>Animasyon | 1s20dk | IMDb:7.5 <span class="star" style="color:green;">★</span></p></div>
+  </div>
+  <div class="video-container"><iframe src="https://www.youtube.com/embed/8frpxaeOeDA" allowfullscreen></iframe></div>
+
+  <div class="video-wrapper" data-imdb="7.1" onclick="toggleVideo(this)">
+    <div class="video-info"><h3>Corgi</h3><p>Animasyon | 1s30dk | IMDb:7.1 <span class="star" style="color:green;">★</span></p></div>
+  </div>
+  <div class="video-container"><iframe src="https://www.youtube.com/embed/7cyrtSOzD2I" allowfullscreen></iframe></div>
+
+  <div class="video-wrapper" data-imdb="6.8" onclick="toggleVideo(this)">
+    <div class="video-info"><h3>Mutlu Canavar Ailesi</h3><p>Animasyon | 1s25dk | IMDb:6.8 <span class="star" style="color:yellow;">★</span></p></div>
+  </div>
+  <div class="video-container"><iframe src="https://www.youtube.com/embed/ltrFzTAwVvo?start=57" allowfullscreen></iframe></div>
+
+  <div class="video-wrapper" data-imdb="7.0" onclick="toggleVideo(this)">
+    <div class="video-info"><h3>Mutlu Canavar Ailesi 1</h3><p>Animasyon | 1s40dk | IMDb:7.0 <span class="star" style="color:green;">★</span></p></div>
+  </div>
+  <div class="video-container"><iframe src="https://www.youtube.com/embed/c5TgUdeOCeM" allowfullscreen></iframe></div>
+
+  <div class="video-wrapper" data-imdb="7.2" onclick="toggleVideo(this)">
+    <div class="video-info"><h3>Kurtlar Kuzulara Karşı</h3><p>Animasyon | 1s35dk | IMDb:7.2 <span class="star" style="color:green;">★</span></p></div>
+  </div>
+  <div class="video-container"><iframe src="https://www.youtube.com/embed/x_jHHzMdzs4" allowfullscreen></iframe></div>
+</div>
+
+<!-- Yerli Filmler -->
+<div class="category" onclick="toggleCategory('yerli')">Yerli Filmler</div>
+<div class="video-section" id="yerli">
+
+  <div class="video-wrapper" data-imdb="8.2" onclick="toggleVideo(this)">
+    <div class="video-info"><h3>İllegal Hayatlar Meclisi 2</h3><p>Komedi | 1s50dk | IMDb:8.2 <span class="star" style="color:green;">★</span></p></div>
+  </div>
+  <div class="video-container"><iframe src="https://www.youtube.com/embed/QdUF9dXvjaU" allowfullscreen></iframe></div>
+
+  <div class="video-wrapper" data-imdb="7.5" onclick="toggleVideo(this)">
+    <div class="video-info"><h3>Sakar Şakir</h3><p>Komedi | 1s35dk | IMDb:7.5 <span class="star" style="color:green;">★</span></p></div>
+  </div>
+  <div class="video-container"><iframe src="https://www.youtube.com/embed/TgafR1fzii0" allowfullscreen></iframe></div>
+
+  <div class="video-wrapper" data-imdb="8.1" onclick="toggleVideo(this)">
+    <div class="video-info"><h3>Süt Kardeşler</h3><p>Komedi | 1s35dk | IMDb:8.1 <span class="star" style="color:green;">★</span></p></div>
+  </div>
+  <div class="video-container"><iframe src="https://www.youtube.com/embed/KRy20M7uQM4" allowfullscreen></iframe></div>
+
+  <div class="video-wrapper" data-imdb="8.0" onclick="toggleVideo(this)">
+    <div class="video-info"><h3>Hababam Sınıfı Uyanıyor</h3><p>Komedi | 1s45dk | IMDb:8.0 <span class="star" style="color:green;">★</span></p></div>
+  </div>
+  <div class="video-container"><iframe src="https://www.youtube.com/embed/RyO7t32l428" allowfullscreen></iframe></div>
+
+  <div class="video-wrapper" data-imdb="7.8" onclick="toggleVideo(this)">
+    <div class="video-info"><h3>Kapıcılar Kralı</h3><p>Komedi | 1s40dk | IMDb:7.8 <span class="star" style="color:green;">★</span></p></div>
+  </div>
+  <div class="video-container"><iframe src="https://www.youtube.com/embed/kCpQSnz0udI" allowfullscreen></iframe></div>
+
+  <div class="video-wrapper" data-imdb="7.4" onclick="toggleVideo(this)">
+    <div class="video-info"><h3>Şaban Oğlu Şaban</h3><p>Komedi | 1s35dk | IMDb:7.4 <span class="star" style="color:green;">★</span></p></div>
+  </div>
+  <div class="video-container"><iframe src="https://www.youtube.com/embed/ZDoLID8feBU" allowfullscreen></iframe></div>
+
+  <div class="video-wrapper" data-imdb="7.0" onclick="toggleVideo(this)">
+    <div class="video-info"><h3>Nasıl Yani</h3><p>Komedi | 1s30dk | IMDb:7.0 <span class="star" style="color:green;">★</span></p></div>
+  </div>
+  <div class="video-container"><iframe src="https://www.youtube.com/embed/U9NZdM_GWQg" allowfullscreen></iframe></div>
+
+  <div class="video-wrapper" data-imdb="7.6" onclick="toggleVideo(this)">
+    <div class="video-info"><h3>Tosun Paşa</h3><p>Komedi | 1s50dk | IMDb:7.6 <span class="star" style="color:green;">★</span></p></div>
+  </div>
+  <div class="video-container"><iframe src="https://www.youtube.com/embed/guqpuNWQDhc" allowfullscreen></iframe></div>
+
+  <div class="video-wrapper" data-imdb="7.9" onclick="toggleVideo(this)">
+    <div class="video-info"><h3>Mahidenin Altın Günü</h3><p>Komedi | 1s40dk | IMDb:7.9 <span class="star" style="color:green;">★</span></p></div>
+  </div>
+  <div class="video-container"><iframe src="https://www.youtube.com/embed/g0yqIi6uP7E" allowfullscreen></iframe></div>
+</div>
+
+<!-- Bilim Kurgu -->
+<div class="category" onclick="toggleCategory('bilim')">Bilim Kurgu</div>
+<div class="video-section" id="bilim">
+  <div class="video-wrapper" data-imdb="6.8" onclick="toggleVideo(this)">
+    <div class="video-info"><h3>Buz Kıyameti</h3><p>Bilim Kurgu | 2s10dk | IMDb:6.8 <span class="star" style="color:yellow;">★</span></p></div>
+  </div>
+  <div class="video-container"><iframe src="https://www.youtube.com/embed/-c1wLuS6AXc" allowfullscreen></iframe></div>
+
+  <div class="video-wrapper" data-imdb="7.1" onclick="toggleVideo(this)">
+    <div class="video-info"><h3>Uzaylı Seferi</h3><p>Bilim Kurgu | 1s50dk | IMDb:7.1 <span class="star" style="color:green;">★</span></p></div>
+  </div>
+  <div class="video-container"><iframe src="https://www.youtube.com/embed/S9quFkQJbYs" allowfullscreen></iframe></div>
+
+  <div class="video-wrapper" data-imdb="6.5" onclick="toggleVideo(this)">
+    <div class="video-info"><h3>İstila: Zamanın Sonu</h3><p>Bilim Kurgu | 2s0dk | IMDb:6.5 <span class="star" style="color:yellow;">★</span></p></div>
+  </div>
+  <div class="video-container"><iframe src="https://www.youtube.com/embed/2xMBRRvJdNs" allowfullscreen></iframe></div>
+
+  <div class="video-wrapper" data-imdb="7.0" onclick="toggleVideo(this)">
+    <div class="video-info"><h3>Evrenler Savaşı (Alienoid)</h3><p>Bilim Kurgu | 2s15dk | IMDb:7.0 <span class="star" style="color:green;">★</span></p></div>
+  </div>
+  <div class="video-container"><iframe src="https://www.youtube.com/embed/L8QTlOVS15E" allowfullscreen></iframe></div>
+
+  <div class="video-wrapper" data-imdb="6.9" onclick="toggleVideo(this)">
+    <div class="video-info"><h3>Uzaylı İstilası: Dünyanın Sonu</h3><p>Bilim Kurgu | 2s5dk | IMDb:6.9 <span class="star" style="color:yellow;">★</span></p></div>
+  </div>
+  <div class="video-container"><iframe src="https://www.youtube.com/embed/pIqZTBtK7zQ" allowfullscreen></iframe></div>
+</div>
+
+<!-- Aksiyon & Macera -->
+<div class="category" onclick="toggleCategory('aksiyon')">Aksiyon & Macera</div>
+<div class="video-section" id="aksiyon">
+  <div class="video-wrapper" data-imdb="6.5" onclick="toggleVideo(this)">
+    <div class="video-info"><h3>İntikam Vakti</h3><p>Aksiyon | 1s50dk | IMDb:6.5 <span class="star" style="color:yellow;">★</span></p></div>
+  </div>
+  <div class="video-container"><iframe src="https://www.youtube.com/embed/5_VvVe2_Hvo" allowfullscreen></iframe></div>
+
+  <div class="video-wrapper" data-imdb="6.5" onclick="toggleVideo(this)">
+    <div class="video-info"><h3>Kara Şeytan</h3><p>Aksiyon | 1s45dk | IMDb:6.5 <span class="star" style="color:yellow;">★</span></p></div>
+  </div>
+  <div class="video-container"><iframe src="https://www.youtube.com/embed/jT26_ol_6Gc" allowfullscreen></iframe></div>
+
+  <div class="video-wrapper" data-imdb="6.8" onclick="toggleVideo(this)">
+    <div class="video-info"><h3>Öldür Komutu</h3><p>Aksiyon | 1s45dk | IMDb:6.8 <span class="star" style="color:yellow;">★</span></p></div>
+  </div>
+  <div class="video-container"><iframe src="https://www.youtube.com/embed/zaKXkd8OPcY" allowfullscreen></iframe></div>
+
+  <div class="video-wrapper" data-imdb="6.6" onclick="toggleVideo(this)">
+    <div class="video-info"><h3>Tetikçi</h3><p>Aksiyon | 1s40dk | IMDb:6.6 <span class="star" style="color:yellow;">★</span></p></div>
+  </div>
+  <div class="video-container"><iframe src="https://www.youtube.com/embed/-wgEC7LrDQY" allowfullscreen></iframe></div>
+
+  <div class="video-wrapper" data-imdb="6.4" onclick="toggleVideo(this)">
+    <div class="video-info"><h3>Tetikçi 2</h3><p>Aksiyon | 1s45dk | IMDb:6.4 <span class="star" style="color:yellow;">★</span></p></div>
+  </div>
+  <div class="video-container"><iframe src="https://www.youtube.com/embed/lJHmiVHNmQk" allowfullscreen></iframe></div>
+
+  <div class="video-wrapper" data-imdb="6.7" onclick="toggleVideo(this)">
+    <div class="video-info"><h3>Valerian ve Bin Gezegen</h3><p>Aksiyon | 2s0dk | IMDb:6.7 <span class="star" style="color:yellow;">★</span></p></div>
+  </div>
+  <div class="video-container"><iframe src="https://www.youtube.com/embed/n5Sb0J23_3Q" allowfullscreen></iframe></div>
+</div>
+
+<audio id="bg-music" loop autoplay>
+  <source src="https://www.bensound.com/bensound-music/bensound-slowmotion.mp3" type="audio/mpeg">
+</audio>
+<button id="music-toggle">🎵 Ses Aç/Kapat</button>
+
+<script>
+const music = document.getElementById('bg-music');
+window.addEventListener('DOMContentLoaded', ()=>{ music.play().catch(()=>{}); });
+
+function toggleCategory(id){
+  const section=document.getElementById(id);
+  section.style.display = section.style.display==='block'?'none':'block';
+}
+
+function toggleVideo(el){
+  const next=el.nextElementSibling;
+  const allVideos=document.querySelectorAll('.video-container');
+  let anyOpen=false;
+  allVideos.forEach(v=>{ if(v!==next) v.style.display='none'; });
+  next.style.display = next.style.display==='block'?'none':'block';
+  allVideos.forEach(v=>{ if(v.style.display==='block') anyOpen=true; });
+  if(anyOpen) music.pause(); else music.play();
+}
+
+document.getElementById('music-toggle').addEventListener('click', ()=>{ if(music.paused) music.play(); else music.pause(); });
+
+document.getElementById('filmSearch').addEventListener('input', function() {
+  const query = this.value.toLowerCase();
+  document.querySelectorAll('.video-wrapper').forEach(wrapper=>{
+    const title = wrapper.querySelector('h3').textContent.toLowerCase();
+    const section = wrapper.closest('.video-section');
+    if(title.includes(query)){
+      wrapper.style.display='flex';
+      section.style.display='block';
+    } else { wrapper.style.display='none'; }
+  });
+  if(query==='') document.querySelectorAll('.video-section').forEach(s=>s.style.display='none');
+});
+
+function filterByRating(min){
+  document.querySelectorAll('.video-wrapper').forEach(wrapper=>{
+    const rating=parseFloat(wrapper.dataset.imdb);
+    wrapper.style.display=rating>=min?'flex':'none';
+    if(rating>=min) wrapper.closest('.video-section').style.display='block';
+  });
+}
+</script>
+</body>
+</html>
